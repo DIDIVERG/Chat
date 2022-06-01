@@ -1,0 +1,42 @@
+﻿<Window x:Class="ClientChat.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientChat"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Registration" Height="800" Width="1000" >
+    <Window.Background>
+        <ImageBrush ImageSource="images/background.jpg" Stretch="UniformToFill">
+        </ImageBrush>
+    </Window.Background>
+    <Grid>
+
+        <Border MinWidth="400" Margin="15"  CornerRadius="10"  VerticalAlignment="Center" Padding="20" MaxWidth="650">
+            <Border.Effect>
+                <DropShadowEffect Direction="270" BlurRadius="20" ShadowDepth="1" Color="#bdd0e4"></DropShadowEffect>
+            </Border.Effect>
+
+            <StackPanel>
+                <TextBlock x:Name="textAboveForm" Text="Ну ты это, зарегистрируйся что-ли" FontSize="33" FontWeight="Bold" FontStyle="Normal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                </TextBlock>
+                <Grid>
+                    <Button x:Name="registrationChanger" HorizontalAlignment="Left" Margin="10" Width="130" Height="40" Content="Регистрация" Foreground="#bdd0e4" FontWeight="ExtraBlack" Cursor="Hand"  Style="{StaticResource MaterialDesignFlatMidBgButton}" Click="ChangeRegisterButton_Click" />
+                    <Button x:Name="authorizationChanger" HorizontalAlignment="Right" Margin="10" Width="130" Height="40" Content="Авторизация" Foreground="Black" FontWeight="ExtraBlack" Cursor="Hand" Style="{StaticResource MaterialDesignOutlinedDarkButton}" Click="ChangeAuthorizationButton_Click"/>
+                </Grid>
+                <TextBox LostFocus="loginArea_LostFocus" Opacity="0.7" x:Name="loginArea" FontSize="20" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Логин" materialDesign:HintAssist.IsFloating="false" Cursor="Arrow"></TextBox>
+                <TextBox  Visibility="Collapsed" FontSize="20" Margin="10" Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Пароль" materialDesign:HintAssist.IsFloating="False" Cursor="Arrow">
+                </TextBox>
+                <!-- Эта штука для переключения видимости пароля-->
+                <PasswordBox LostFocus="passworArea_LostFocus" x:Name="passworArea" Grid.Column="2"  FontSize="20" Margin="10" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" materialDesign:HintAssist.Hint="Пароль" materialDesign:HintAssist.IsFloating="False" Cursor="Arrow" Opacity="0.7"></PasswordBox>
+                <TextBox LostFocus="mailArea_LostFocus" Visibility="Visible" Opacity="0.7" x:Name="mailArea" FontSize="20" Margin="10"  Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="E-mail" Cursor="Arrow" materialDesign:HintAssist.IsFloating="False"></TextBox>
+                <Button Visibility="Visible" Click="registerButton_Click" x:Name="registerButton" Margin="10"  Height="40" Content="Регистрация" Foreground="#bdd0e4" FontWeight="ExtraBlack" Cursor="Hand" />
+                <Button Visibility="Collapsed" Click="autorhizationButton_Click" x:Name="authorizationButton" Margin="10"  Height="40" Content="Авторизация" Foreground="#bdd0e4" FontWeight="ExtraBlack" Cursor="Hand" />
+            </StackPanel>
+
+        </Border>
+
+
+    </Grid>
+</Window>
