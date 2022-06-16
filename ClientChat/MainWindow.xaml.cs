@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using ClientChat.ServiceChat;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace ClientChat
 {
@@ -23,7 +25,17 @@ namespace ClientChat
                 tbUserName.IsEnabled = false;
                 bConnDiscon.Content = "Disconnect";
                 isConnected = true;
-
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Database1"].ConnectionString))
+                {
+                    conn.Open();
+                    SqlCommand selectQuery = new SqlCommand("SELECT messages FROM Messages", conn);
+                    SqlDataReader reader = selectQuery.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        lbChat.Items.Add(reader.GetString(0));
+                    }
+                    conn.Close();
+                }
             }
         }
 
@@ -36,7 +48,7 @@ namespace ClientChat
                 tbUserName.IsEnabled = true;
                 bConnDiscon.Content = "Connect";
                 isConnected = false;
-
+                lbChat.Items.Clear();
             }
 
         }
@@ -58,6 +70,14 @@ namespace ClientChat
         {
             lbChat.Items.Add(msg);
             lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Database1"].ConnectionString))
+            {
+                conn.Open();
+                SqlCommand insertQuery = new SqlCommand("INSERT Messages (messages) VALUES (@answer)", conn);
+                insertQuery.Parameters.AddWithValue("@answer", msg);
+                insertQuery.ExecuteNonQuery();
+                conn.Close();
+            }
         }
 
         private void ChatClosing(object sender, System.ComponentModel.CancelEventArgs e)
